@@ -4,10 +4,11 @@ capability_types:
   tosca.capabilities.Storage:
     derived_from: tosca.capabilities.Root
     metadata:
-      targetNamespace: "tosca.capabilities"
       abstract: "false"
       final: "false"
+      targetNamespace: "tosca.capabilities"
     properties:
       name:
         type: string
         required: false
+        status: supported

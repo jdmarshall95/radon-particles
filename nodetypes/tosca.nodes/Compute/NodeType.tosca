@@ -4,18 +4,37 @@ node_types:
   tosca.nodes.Compute:
     derived_from: tosca.nodes.Root
     metadata:
-      targetNamespace: "tosca.nodes"
       abstract: "false"
       final: "false"
-    attributes:
+      targetNamespace: "tosca.nodes"
+    properties:
+      tosca_name: 
+        type: string
+        required: false
+      meta:
+        type: string
+        required: false
+      keypair:
+        type: string
+        required: false
+      boot_from_volume:
+        type: string
+        default: false
+        required: false
       private_address:
         type: string
+        required: false
       public_address:
         type: string
+        required: false
       networks:
         type: map
+        required: false
+        entry_schema:
+          type: tosca.datatypes.network.NetworkInfo
       ports:
         type: map
+        required: false
     requirements:
       - local_storage:
           capability: tosca.capabilities.Attachment
@@ -28,7 +47,7 @@ node_types:
         type: tosca.capabilities.Scalable
       endpoint:
         occurrences: [ 1, UNBOUNDED ]
-        type: tosca.capabilities.Endpoint.Admin
+        type: tosca.capabilities.Endpoint
       os:
         occurrences: [ 1, UNBOUNDED ]
         type: tosca.capabilities.OperatingSystem
