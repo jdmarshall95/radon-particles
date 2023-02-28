@@ -1,0 +1,25 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Ignite.Ignite-7-1-1:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "Apache Ignite service"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Ignite"
+    properties:
+      version:
+        type: string
+        default: 7.1.1
+        constraints:
+          - valid_values: [7.1.1]
+      memory:
+        type: integer
+        default: 30
+        required: true
+        description: "percentage (integer number from 0 to 100) of worker memory to be assigned to Apache Ignite.
+Currently this simply reduces spark executor memory, Apache Ignite memory usage must be manually configured."
+    capabilities:
+      dependence:
+        type: michman.capabilities.Ignite

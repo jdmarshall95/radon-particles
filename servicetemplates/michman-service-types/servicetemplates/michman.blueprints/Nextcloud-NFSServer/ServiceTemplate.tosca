@@ -1,0 +1,58 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+metadata:
+  targetNamespace: "michman.blueprints"
+
+topology_template:
+  node_templates:
+    Compute_0:
+      type: tosca.nodes.Compute
+      metadata:
+        x: "801"
+        y: "538"
+        displayName: "Compute"
+    Nextcloud_0:
+      type: michman.nodes.Nextcloud
+      metadata:
+        x: "604"
+        y: "162"
+        displayName: "Nextcloud"
+      properties:
+        custom_oidc_providers_host: "testing_value"
+        custom_oidc_providers_ip: null
+        version: "default"
+        weblab_name: null
+        url: null
+      requirements:
+        - nfs_server:
+            node: NFSServer_0
+            relationship: con_NextcloudNFSServerDependsOn_0
+            capability: dependence
+        - host:
+            node: Compute_0
+            relationship: con_HostedOn_1
+            capability: host
+    NFSServer_0:
+      type: michman.nodes.NFSServer
+      metadata:
+        x: "1095"
+        y: "176"
+        displayName: "NFSServer"
+      properties:
+        version: "default"
+        weblab_name: "testing_value"
+        nextcloud_nfs_server_ip: { get_attribute: [ HOST, public_address ] }
+      requirements:
+        - host:
+            node: Compute_0
+            relationship: con_HostedOn_0
+            capability: host
+  relationship_templates:
+    con_HostedOn_0:
+      type: tosca.relationships.HostedOn
+    con_HostedOn_1:
+      type: tosca.relationships.HostedOn
+    con_NextcloudNFSServerDependsOn_0:
+      type: michman.relationships.NextcloudNFSServerDependsOn
+      properties:
+        nextcloud_nfs_server_ip: { get_attribute: [ TARGET, nextcloud_nfs_server_ip ] }

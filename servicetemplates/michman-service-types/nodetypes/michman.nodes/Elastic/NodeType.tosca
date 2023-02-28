@@ -1,0 +1,9 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Elastic:
+    derived_from: michman.nodes.Elastic.Elastic-7-1-1
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes"

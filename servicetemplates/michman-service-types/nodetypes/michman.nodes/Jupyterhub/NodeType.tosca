@@ -1,0 +1,9 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Jupyterhub:
+    derived_from: michman.nodes.Jupyterhub.Jupyterhub-1-0-0
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes"

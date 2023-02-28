@@ -1,0 +1,40 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Spark.Spark-1-5-2:
+    derived_from: tosca.nodes.SoftwareComponent
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Spark"
+    properties:
+      version:
+        type: string
+        default: 1.5.2
+        constraints:
+          - valid_values: [1.5.2]
+      hadoop_version:
+        type: string
+        default: 2.6
+        required: true
+        description: "hadoop versions for spark 1.5.2" 
+        constraints:
+          - valid_values: [1, cdh4, 2.3, 2.4, 2.6]
+      use_yarn:
+        type: bool
+        default: false
+        required: true
+        description: "use yarn mode on spark 1.5.2"
+      yarn_master_mem_mb:
+        type: integer
+        default: 10240
+        required: true
+        description: "Amount of physical memory, in MB, that can be allocated for containers. Default value if 10240."
+      worker_mem_mb:
+        type: integer
+        default: 10240
+        required: true
+        description: "Do not auto-detect spark worker memory and use specified value, can be useful if other processes on slave nodes (e.g. python) need more memory, default for 10Gb-20Gb RAM slaves is to leave 2Gb to system/other processes"
+    capabilities:
+      dependence:
+        type: michman.capabilities.Spark

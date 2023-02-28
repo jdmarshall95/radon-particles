@@ -1,0 +1,87 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Jupyter.Jupyter-6-0-1:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "Jupyter version 6.0.1 (latest for pip install)"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Jupyter"
+    properties:
+      version:
+        type: string
+        default: 6.0.1
+        constraints:
+          - valid_values: [6.0.1]
+      spark_component_version:
+        type: string
+        required: true
+        description: "Setup version required. Default version is 2.3.0. \
+Supported versions: >= 1.0.0, <= 2.3.0"
+        constraints:
+          - valid_values: [ "1.0.0", "1.0.1", "1.0.2", "1.1.0", "1.1.1", "1.2.0", "1.2.1", "1.2.2", "1.3.0", "1.3.1",
+          "1.4.0", "1.4.1", "1.5.0", "1.5.1", "1.5.2", "1.6.0", "1.6.1", "1.6.2", "2.0.0", "2.0.1", "2.0.2", "2.1.0",
+          "2.2.0", "2.2.1", "2.3.0"]
+      core:
+        type: string
+        default: 4.5.0
+        constraints:
+          - valid_values: [4.5.0]
+        required: false
+        description: default jupyter core version (now this config param is not supported)
+      qtconsole:
+        type: string
+        default: "-"
+        constraints:
+          - valid_values: ["-"]
+        required: false
+        description: now qtconsole is not installed (now this config param is not supported)
+      ipython:
+        type: string
+        default: 7.8.0
+        required: false
+        description: default ipython version (now this config param is not supported)
+      ipykernel:
+        type: string
+        default: 5.1.2
+        required: false
+        description: default ipykernel version (now this config param is not supported)
+      client:
+        type: string
+        default: 5.3.1
+        required: false
+        description: default jupyter client version (now this config param is not supported)
+      lab:
+        type: string
+        default: 1.1.1
+        required: false
+        description: default jupyter lab version (now this config param is not supported)
+      nbconvert:
+        type: string
+        default: 5.6.0
+        required: false
+        description: default nbconvert version (now this config param is not supported)
+      ipywidgets:
+        type: string
+        default: "-"
+        required: false
+        description:  now ipywidgets is not installed (now this config param is not supported)
+      nbformat:
+        type: string
+        default: 4.4.0
+        required: false
+        description: default nbformat version (now this config param is not supported)
+      traitlets:
+        type: string
+        default: 4.3.2
+        required: false
+        description: default traitlets version (now this config param is not supported)
+    capabilities:
+      dependence:
+        type: michman.capabilities.Jupyter
+    requirements:
+      - spark:
+          capability: michman.capabilities.Spark
+          relationship: tosca.relationships.DependsOn
+          occurrences: [1, 1]

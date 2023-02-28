@@ -1,0 +1,24 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Elastic.Elastic-7-1-1:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "ElastiSearch service"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Elastic"
+    properties:
+      version:
+        type: string
+        default: 7.1.1
+        constraints:
+          - valid_values: [7.1.1]
+      heap-size:
+        type: string
+        description: use specific ElasticSearch heap size. Default heap size is 1g (1 GB).
+        default: 1g
+        required: true
+    capabilities:
+      dependence:
+        type: michman.capabilities.Elastic

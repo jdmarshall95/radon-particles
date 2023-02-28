@@ -1,0 +1,34 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Cassandra.Cassandra-3-11-4:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "Cassandra database service"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Cassandra"
+    properties:
+      version:
+        type: string
+        required: true
+        default: 3.11.4
+        constraints:
+          - valid_values: [3.11.4]
+      spark_component_version:
+        type: string
+        required: true
+        description: "Setup version required. Default version is 2.3.0. \
+Supported versions: >= 1.0.0, <= 2.3.0"
+        constraints:
+          - valid_values: [ "1.0.0", "1.0.1", "1.0.2", "1.1.0", "1.1.1", "1.2.0", "1.2.1", "1.2.2", "1.3.0", "1.3.1",
+          "1.4.0", "1.4.1", "1.5.0", "1.5.1", "1.5.2", "1.6.0", "1.6.1", "1.6.2", "2.0.0", "2.0.1", "2.0.2", "2.1.0",
+          "2.2.0", "2.2.1", "2.3.0"]
+    capabilities:
+      dependence:
+        type: michman.capabilities.Cassandra
+    requirements:
+      - spark:
+          capability: michman.capabilities.Spark
+          relationship: tosca.relationships.DependsOn
+          occurrences: [1, 1]

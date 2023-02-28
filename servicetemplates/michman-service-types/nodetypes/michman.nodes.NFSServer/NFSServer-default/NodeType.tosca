@@ -1,0 +1,25 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.NFSServer.NFSServer-default:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "NFS server"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.NFSServer"
+    properties:
+      nextcloud_nfs_server_ip:
+        default: {get_attribute: [HOST, public_address]}
+      version:
+        type: string
+        default: "default"
+        constraints:
+          - valid_values: ["default"]
+      weblab_name:
+        type: string
+        required: true
+        description: name of Web Laboratory
+    capabilities:
+      dependence:
+        type: michman.capabilities.NFSServer

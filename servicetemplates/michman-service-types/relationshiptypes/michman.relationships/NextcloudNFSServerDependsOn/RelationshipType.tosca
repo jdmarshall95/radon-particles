@@ -1,0 +1,16 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+relationship_types:
+  michman.relationships.NextcloudNFSServerDependsOn:
+    derived_from: tosca.relationships.DependsOn
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.relationships"
+    properties:
+      nextcloud_nfs_server_ip:
+        type: string
+        required: true
+        description: NFS server IP
+        default: { get_attribute: [ TARGET, nextcloud_nfs_server_ip] }
+    valid_target_types: [ michman.capabilities.NFSServer ]

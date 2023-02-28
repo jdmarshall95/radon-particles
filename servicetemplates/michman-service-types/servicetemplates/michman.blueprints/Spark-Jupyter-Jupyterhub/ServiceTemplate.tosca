@@ -1,0 +1,93 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+metadata:
+  targetNamespace: "michman.blueprints"
+
+topology_template:
+  node_templates:
+    Compute_0:
+      type: tosca.nodes.Compute
+      metadata:
+        x: "400"
+        y: "536"
+        displayName: "Compute"
+    Compute_2:
+      type: tosca.nodes.Compute
+      metadata:
+        x: "1032"
+        y: "556"
+        displayName: "Compute"
+    Jupyterhub_0:
+      type: michman.nodes.Jupyterhub
+      metadata:
+        x: "1235"
+        y: "128"
+        displayName: "Jupyterhub"
+      properties:
+        jupyter_component_version: "6.0.1"
+        version: "1.0.0"
+      requirements:
+        - jupyter:
+            node: Jupyter_0
+            relationship: con_DependsOn_0
+            capability: dependence
+        - host:
+            node: Compute_2
+            relationship: con_HostedOn_0
+            capability: host
+    Jupyter_0:
+      type: michman.nodes.Jupyter
+      metadata:
+        x: "814"
+        y: "136"
+        displayName: "Jupyter"
+      properties:
+        traitlets: "4.3.2"
+        qtconsole: "-"
+        core: "4.5.0"
+        spark_component_version: "2.3.0"
+        nbformat: "4.4.0"
+        client: "5.3.1"
+        ipython: "7.8.0"
+        lab: "1.1.1"
+        nbconvert: "5.6.0"
+        ipykernel: "5.1.2"
+        version: "6.0.1"
+        ipywidgets: "-"
+      requirements:
+        - spark:
+            node: Spark_0
+            relationship: con_DependsOn_1
+            capability: dependence
+        - host:
+            node: Compute_2
+            relationship: con_HostedOn_1
+            capability: host
+    Spark_0:
+      type: michman.nodes.Spark
+      metadata:
+        x: "400"
+        y: "158"
+        displayName: "Spark"
+      properties:
+        worker_mem_mb: 10240
+        yarn_master_mem_mb: 10240
+        hadoop_version: 2.7
+        version: "2.3.0"
+        use_yarn: false
+      requirements:
+        - host:
+            node: Compute_0
+            relationship: con_HostedOn_2
+            capability: host
+  relationship_templates:
+    con_HostedOn_2:
+      type: tosca.relationships.HostedOn
+    con_DependsOn_0:
+      type: tosca.relationships.DependsOn
+    con_DependsOn_1:
+      type: tosca.relationships.DependsOn
+    con_HostedOn_0:
+      type: tosca.relationships.HostedOn
+    con_HostedOn_1:
+      type: tosca.relationships.HostedOn

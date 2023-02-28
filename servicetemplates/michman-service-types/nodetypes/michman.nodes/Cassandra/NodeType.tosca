@@ -1,0 +1,9 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Cassandra:
+    derived_from: michman.nodes.Cassandra.Cassandra-3-11-4
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes"

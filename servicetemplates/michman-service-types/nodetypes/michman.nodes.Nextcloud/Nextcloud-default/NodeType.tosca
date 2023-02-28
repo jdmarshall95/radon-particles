@@ -1,0 +1,40 @@
+tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+  michman.nodes.Nextcloud.Nextcloud-3-11-4:
+    derived_from: tosca.nodes.SoftwareComponent
+    description: "Nextcloud service"
+    metadata:
+      abstract: "false"
+      final: "false"
+      targetNamespace: "michman.nodes.Nextcloud"
+    properties:
+      version:
+        type: string
+        default: "default"
+        constraints:
+          - valid_values: ["default"]
+      custom_oidc_providers_host:
+        type: string
+        required: true
+        description: keycloak hostname
+      custom_oidc_providers_ip:
+        type: string
+        required: true
+        description: keycloak server ip
+      url:
+        type: string
+        required: true
+        description: URL of nextcloud as it will be opened from portal (including proxy and weblab id).
+      weblab_name:
+        type: string
+        required: true
+        description: name of Web Laboratory
+    capabilities:
+      dependence:
+        type: michman.capabilities.Nextcloud
+    requirements:
+      - nfs_server:
+          capability: michman.capabilities.NFSServer
+          relationship: michman.relationships.NextcloudNFSServerDependsOn
+          occurrences: [1, 1]
